@@ -1,0 +1,22 @@
+Synthetic data saved to synthetic_rv_data.csv
+True Params: P=21.1668, e=0.35, T_p=12.0, K=45.0, omega=1.2, gamma=5.0
+
+--- Initializing RV Pipeline ---
+
+[Step 1] Running Lomb-Scargle Periodogram...
+Period: 20.9463 days
+
+[Step 2] Running Linearized 3-Variable Fit (Fast)...
+Local result: P=21.15038478 e=0.342454, T_p=8.055592
+DE chi2: 63.79
+Local result: P=21.15038460 e=0.342454, T_p=8.055595
+Local chi2: 63.79
+
+Final orbital parameters:
+P = 21.15038460 +/- 0.03232018 days
+e = 0.342454 +/- 0.019226
+T_p = 2450012.2000 +/- 0.1845 days
+K = 46.19 +/- 1.03 m/s
+omega = 1.254 +/- 0.019 rad (71.9 +/- 1.1°)
+gamma = 5.98 +/- 0.66 m/s
+A = 14.37 +/- 0.92, B = -43.90 +/- 1.01

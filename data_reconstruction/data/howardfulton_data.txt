@@ -1,0 +1,11 @@
+howardfulton Data's Statistical Inspection
+Count= 202 days
+Baseline Duration = 5844.067629999947 days
+Mean Uncertainty = 2.1162016376237625 m/s
+SD of Velocities = 42.2955796083552 m/s
+Minimum RV = -71.4648513794 m/s
+Maximum RV = 112.006546021 m/s
+
+LombScargle:
+Best Omega: 1.485092 rad/d
+Period: 4.2308 days

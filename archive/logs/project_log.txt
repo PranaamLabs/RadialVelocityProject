@@ -1,0 +1,62 @@
+downloaded butler's and HowardFulton's dataset (in data/)
+
+csv saving (savetocsv.py) 
+
+downloaded goldstein, SSD, Exoplanets, Bradely(modern AP)
+
+Read Goldstein CM: 3.1-3.8
+
+Saved Goldstein notes images to notes/Goldstein_CM
+
+Made image_plot.py
+saved first_plot.png
+
+oberserd the following:
+Butler dataset:
+- Dense early observations.
+- Sparse middle baseline.
+- RV amplitude roughly ±60 m/s.
+- Uncertainties generally small.
+
+Howard & Fulton:
+- Longer baseline (~6000 days).
+- More uniform long-term monitoring.
+- Broader cadence variation.
+
+Made matplotlib and pandas notes of used till now functions
+
+Made dataset_metadata.py
+
+Learnt Fourier transform and drawbacks
+
+learning Lomb's classical Periodogram approach
+
+Downloaded Zechmeister and Kurster 2009 and Read their approach
+Also applied time offset calculation to their approach so that CS=0 (in lombscargle notes)
+
+Implemented lombscargle class and applied it on the two datasets.(lomb_scargle_plots.png)
+lombscargle.py gave accurate results in apply_ls. Period was found to be 4.230 days (LS_compared_with_astropy.png)
+built a compare_ls.py that compares my lombscargle with astropy's(but matched the scale by multiplying with (N-1)/2)
+
+made phase plot for phase 0 to 2. periodic sinusoidal graph was successfully obtained.(butler_phasefolded.png and howardfulton_phasefolded.png)
+
+for keplerian fit (keplerian_fit.py and fit.py)
+- P used from LombScargle Periodogram
+- Obtained γ: Systemic velocity, K: Radial velocity semi-amplitude and ω: Argument of periastron by linear regression
+- For e: Eccentricity and T_p: Time of periapsis passage were found using optimization first found roughly by scipy.optimize.differential_evolution and then using the estimates- found precisely by scipy.optiminize.minimize
+
+Obtained the data and is stored as data/fit_data.text also plotted the fitted phase graphs which seems accurate. (RV_fit_*.png)
+
+Refined fitting:
+- 1. γ,K,ω from linear regression, Use P from lomb scargle for bounds to find optimized e, T_p and P. (fit_3var.py)
+- 2. All 6 variables use scipy optimization to find best fitting via least chi_square. Still uses P from LS for bounds. (fit_6var.py)
+- 3. Created a test_pipeline.py to see if the whole lomb scargle -> keplarian fit pipeline works and recovers data with noise. It does. we can proceed to do degradation studies.
+
+Did cadence testing(cadence_results_*.csv, cadence_graph_info.txt, cadence_degradation_*.png) : success?
+Did a convergence test to choose ITERATIONS_PER_STEP for run_cadence_test.py - it plateaus after ITERATIONS_PER_STEP = 30. hence chose ITERATIONS_PER_STEP = 50.(cadence/convergence.py, mc_convergence_for_cad.csv and png)
+
+Wrote code for Sparse Sampling Limit tests, did a convergence test for this too. ill choose ITERATIONS_PER_STEP = 70 for this.
+(sparse_sampling_limit/convergence.py, run.py, plot.py)
+
+almost finished writing mathematical methods section of paper. what remains is error propagation of non linear parameters derivations.
+

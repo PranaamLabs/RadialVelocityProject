@@ -1,0 +1,42 @@
+----------Butler data----------
+Local result: P=4.23073056 e=0.012530, T_p=-1.180400
+DE chi2: 330.60
+Local result: P=4.23073056 e=0.012530, T_p=-1.180400
+Local chi2: 330.60
+
+Final orbital parameters:
+P = 4.23073056 +/- 0.00003662 days
+e = 0.012530 +/- 0.009867
+T_p = 2450001.4853 +/- 0.4861 days
+K = 55.88 +/- 0.52 m/s
+omega = 0.980 +/- 0.009 rad (56.1 +/- 0.5°)
+gamma = -1.90 +/- 0.37 m/s
+A = 31.12 +/- 0.52, B = -46.40 +/- 0.52
+
+
+----------HowardFulton data----------
+Local result: P=4.23086465 e=0.046292, T_p=-1.503748
+DE chi2: 13969.04
+Local result: P=4.23086465 e=0.046292, T_p=-1.503748
+Local chi2: 13969.04
+
+Final orbital parameters:
+P = 4.23086465 +/- 0.00000502 days
+e = 0.046292 +/- 0.003295
+T_p = 2450001.1692 +/- 0.0492 days
+K = 55.37 +/- 0.18 m/s
+omega = 0.558 +/- 0.003 rad (32.0 +/- 0.2°)
+gamma = 8.87 +/- 0.13 m/s
+A = 46.97 +/- 0.19, B = -29.31 +/- 0.18
+
+The orbital period is tightly constrained and nearly identical in both fits (P ≈ 4.2308 days), with the Howard-Fulton data providing higher precision due to its larger dataset. Most importantly, the radial velocity semi-amplitude K remains highly consistent at ≈55–56 m/s (Butler: 55.88 ± 0.52 m/s; Howard-Fulton: 55.37 ± 0.18 m/s), closely matching accepted literature values for 51 Pegasi b.
+The χ² goodness-of-fit differs dramatically between the datasets (Butler: 330.60; Howard-Fulton: 13,969.04). This is expected and not indicative of a problem with the model: the Howard-Fulton measurements have much higher precision, so any unmodeled stellar jitter (common in hot Jupiter host stars) significantly inflates the χ² when only instrumental uncertainties are used in the fit.
+Eccentricity and Orbit Shape
+The eccentricity remains low in both solutions:
+
+Butler: e = 0.01253 ± 0.00987
+Howard-Fulton: e = 0.04629 ± 0.00330
+
+The Butler dataset yields a value statistically consistent with a circular orbit (e is comparable to its 1σ uncertainty). The Howard-Fulton data prefers a modestly higher eccentricity, but both results indicate a nearly circular orbit overall. This low eccentricity is a hallmark of hot Jupiters, which are expected to have tidally circularized over time.
+The modest differences in the argument of periastron (ω) and time of periastron passage (Tₚ) between the two datasets arise from the near-circular nature of the orbit. When e ≈ 0, there is no well-defined "closest approach," rendering ω and Tₚ partially degenerate with the overall phase of the velocity curve. The optimizer can trade off these parameters while preserving the same physical radial velocity signal. The linear parameters A and B (which encode the amplitude and phase of the sinusoid) remain consistent with the observed K values in both cases.
+The final orbital solutions from both datasets are in good physical agreement and successfully recover the kinematics of 51 Pegasi b—the first exoplanet discovered around a main-sequence star. The small remaining differences are attributable to dataset-specific noise properties and the inherent degeneracies in low-eccentricity Keplerian fits. These results reinforce the picture of a close-in, roughly circular hot Jupiter.

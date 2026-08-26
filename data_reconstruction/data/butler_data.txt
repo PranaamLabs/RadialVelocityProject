@@ -1,0 +1,11 @@
+butler Data's Statistical Inspection
+Count= 256 days
+Baseline Duration = 2187.042187000159 days
+Mean Uncertainty = 6.526953125 m/s
+SD of Velocities = 39.99460156585842 m/s
+Minimum RV = -73.1 m/s
+Maximum RV = 70.4 m/s
+
+LombScargle:
+Best Omega: 1.485306 rad/d
+Period: 4.2302 days
