@@ -9,7 +9,7 @@ df = pd.DataFrame()
 for i in all_csvs:
     df = pd.concat([df,pd.read_csv(i)])
 
-grouped = df.groupby(['test_type', 'true_e', 'independent_var'])[['fit_P', 'LS_power','fit_k', 'fit_e']].agg(['median', 'std'])
+grouped = df.groupby(['test_type', 'true_e', 'independent_var'])[['fit_P', 'LS_power','fit_K', 'fit_e']].agg(['median', 'std'])
 
 # 1. Calculate your absolute errors across the whole dataframe
 df['abs_P_error'] = np.abs(df['fit_P'] - df['true_P'])

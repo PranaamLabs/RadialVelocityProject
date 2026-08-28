@@ -60,3 +60,6 @@ Wrote code for Sparse Sampling Limit tests, did a convergence test for this too.
 
 almost finished writing mathematical methods section of paper. what remains is error propagation of non linear parameters derivations.
 
+tested for a few different e's for cadence tests - found out the graphs vary.
+for better analysis i ran this test- cadence.run.py on multiple e ranging from 0 to 0.95 with step 0.5
+plotted 4 heat maps(cadence_degradation_heatmaps.png)
