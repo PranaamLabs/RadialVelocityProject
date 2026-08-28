@@ -62,4 +62,5 @@ almost finished writing mathematical methods section of paper. what remains is e
 
 tested for a few different e's for cadence tests - found out the graphs vary.
 for better analysis i ran this test- cadence.run.py on multiple e ranging from 0 to 0.95 with step 0.5
-plotted 4 heat maps(cadence_degradation_heatmaps.png)
+plotted 4 heat maps(cadence_degradation_heatmaps.png) using run2.py and heatmaps_plot.py
+
