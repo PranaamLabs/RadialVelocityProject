@@ -1,4 +1,4 @@
-from keplerian_fit import KeplerianModel
+from .keplerian_fit import KeplerianModel
 import pandas as pd
 import numpy as np
 from scipy.optimize import differential_evolution, minimize
@@ -103,7 +103,7 @@ def fit_general(filename, P_guess):
     
     # The Hessian gives ALL errors automatically now!
     inv = local_result.hess_inv.todense()
-    errors = np.sqrt(np.abs(np.diag(inv))) # abs() protects against numerical instability
+    errors = np.sqrt(np.abs(np.diag(inv)))
     dP, de, dT_p, dK, dw, dg = errors
 
     print(f"\nFinal orbital parameters:")
@@ -120,4 +120,4 @@ def fit_general(filename, P_guess):
 
     return local_result
 
-#fit_general("data.csv", 21.1668)
+#fit_general("synthetic_rv_data.csv", 21.1668)

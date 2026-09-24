@@ -5,10 +5,12 @@ By a few simplifications we can linearize this equation
 v = γ + A(cosν + e) + Bsinν
 where A = Kcosω and B = -Ksinω. Here v = v(P, e, T_p, A, B, γ)
 this we can solve with linear regression to get best A, B, γ.
-P we know from LombScargle Periodogram, leaving us with just need of e and T_p
-These two parameters we can use some optimization tool to predict best values.
+This leaves us with just need of P, e and T_p
+These three parameters we can use some optimization tool to predict best values.
+
 This file will contain the Class to handle the linear regression for given t_i, v_i, dv_i, e, T_p, P
-and optimization to find right e and T_p
+
+The optimization to find right P, e and T_p - we get from the fit_xvar.py files.
 """
 
 import numpy as np

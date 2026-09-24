@@ -1,4 +1,4 @@
-from keplerian_fit import KeplerianModel
+from .keplerian_fit import KeplerianModel
 import pandas as pd
 import numpy as np
 from scipy.optimize import differential_evolution, minimize
@@ -191,7 +191,7 @@ def fit_3var(filename, P_guess):
         'local_result': local_result
     }
 
-#fit("data.csv", 21.1668)
+#fit_3var("synthetic_rv_data.csv", 21.1668)
 if __name__=="__main__":
     print(f"{"-"*10}Butler data{"-"*10}")
     fit_3var("data_reconstruction/data/csv/butler.csv", 4.2302)

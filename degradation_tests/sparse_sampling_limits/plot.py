@@ -1,68 +1,48 @@
-import pandas as pd
+import glob
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
+import matplotlib.colors as colors
 
-# 1. Load Data
-df = pd.read_csv('sparse_sampling.csv')
+all_csvs = glob.glob("sparsity_CSVs/*.csv")
+df = pd.concat([pd.read_csv(i) for i in all_csvs])
 
-# Calculate Success Rates
-df['Success_Int'] = (df['Status'] == 'Success').astype(int)
-base_success_rate = df[df['test_type'] == 'Baseline_days'].groupby('baseline_days')['Success_Int'].mean() * 100
+# Calculate Errors
+df['abs_P_error'] = np.abs(df['fit_P'] - df['true_P'])
+df['abs_K_error'] = np.abs(df['fit_K'] - df['true_K'])
 
-# Filter out failures and make a strict copy for the parameter plots
-obs_success = df[(df['test_type'] == 'Observational') & (df['Status'] == 'Success')].copy()
-base_success = df[(df['test_type'] == 'Baseline_days') & (df['Status'] == 'Success')].copy()
+# Build 2D Matrices
+matrix_P = df.pivot_table(index='true_e', columns='N', values='abs_P_error', aggfunc='median')
+matrix_K = df.pivot_table(index='true_e', columns='N', values='abs_K_error', aggfunc='mean')
+matrix_LS = df.pivot_table(index='true_e', columns='N', values='LS_power', aggfunc='median')
 
-# 2. Set up the 2x2 grid
-fig, axs = plt.subplots(2, 2, figsize=(16, 8))
-plt.subplots_adjust(hspace=0.4, wspace=0.2)
+fig, axs = plt.subplots(1, 3, figsize=(18, 5))
 
-# --- Graph 1: The Nyquist Fade (N-Stepdown) ---
-sns.lineplot(data=obs_success, x='N', y='LS_power', ax=axs[0, 0], 
-             estimator=np.median, errorbar='sd', color='blue', marker='o')
-axs[0, 0].set_title('1. The Nyquist Fade (N vs Lomb-Scargle Power)')
-axs[0, 0].set_xlabel('Number of Observations (N)')
-axs[0, 0].set_ylabel('LS Peak Power')
-axs[0, 0].invert_xaxis() # Read from left to right (degrading)
+# Plot 1: LS Power Map
+X, Y = matrix_LS.columns, matrix_LS.index
+im1 = axs[0].pcolormesh(X, Y, matrix_LS.values, shading='auto', cmap='viridis')
+axs[0].invert_xaxis()  # Read left-to-right as degradation
+axs[0].set_title('Median LS Peak Power')
+axs[0].set_xlabel('Number of Observations (N)')
+axs[0].set_ylabel('True Eccentricity (e)')
+fig.colorbar(im1, ax=axs[0], label='Lomb-Scargle Power')
 
-# --- Graph 2: The Sparsity Explosion (N-Stepdown) ---
-sns.lineplot(data=obs_success, x='N', y='fit_K', ax=axs[0, 1], 
-             estimator=np.median, errorbar='sd', color='purple', marker='^')
-axs[0, 1].axhline(y=45.0, color='k', linestyle='--', label='True K (45.0)')
-axs[0, 1].set_title('2. Sparsity Explosion (N vs Fitted Amplitude)')
-axs[0, 1].set_xlabel('Number of Observations (N)')
-axs[0, 1].set_ylabel('Fitted Semi-Amplitude K (m/s)')
-axs[0, 1].legend()
-axs[0, 1].invert_xaxis()
+# Plot 2: K Error Map
+im2 = axs[1].pcolormesh(X, Y, matrix_K.values, shading='auto', cmap='coolwarm')
+axs[1].invert_xaxis()
+axs[1].set_title('Mean Absolute K Error')
+axs[1].set_xlabel('Number of Observations (N)')
+fig.colorbar(im2, ax=axs[1], label='K Error (m/s)')
 
-# --- Graph 3: The Window Limit (Baseline Pinch) ---
-# Calculate Absolute Period Error safely
-base_success['P_error'] = np.abs(base_success['fit_P'] - 21.1668)
+# Plot 3: Period Error Map (Log Scale for alias jumps)
+im3 = axs[2].pcolormesh(X, Y, matrix_P.values, shading='auto', 
+                        norm=colors.LogNorm(vmin=np.nanmin(matrix_P.values[matrix_P.values>0])), 
+                        cmap='magma')
+axs[2].invert_xaxis()
+axs[2].set_title('Median Absolute Period Error')
+axs[2].set_xlabel('Number of Observations (N)')
+fig.colorbar(im3, ax=axs[2], label='Period Error (Days)')
 
-# THE FIX: Mathematically force any absolute 0s to be slightly positive (1e-5)
-# This completely bypasses the symlog bug and safely uses standard log
-base_success['P_error'] = np.clip(base_success['P_error'], 1e-5, None)
-
-sns.lineplot(data=base_success, x='baseline_days', y='P_error', ax=axs[1, 0], 
-             estimator=np.median, errorbar='sd', color='darkorange', marker='s')
-
-axs[1, 0].set_title('3. The Window Limit (Baseline vs Period Error)')
-axs[1, 0].set_xlabel('Observation Baseline (Days)')
-axs[1, 0].set_ylabel('Absolute Period Error (Days)')
-axs[1, 0].set_yscale('log') # Back to standard log!
-axs[1, 0].invert_xaxis()
-
-# --- Graph 4: Orbit Unconstrained (Baseline Pinch) ---
-sns.lineplot(data=base_success, x='baseline_days', y='fit_e', ax=axs[1, 1], 
-             estimator=np.median, errorbar='sd', color='green', marker='D')
-axs[1, 1].axhline(y=0.65, color='k', linestyle='--', label='True e (0.65)')
-axs[1, 1].set_title('4. Loss of Constraints (Baseline vs Fitted Eccentricity)')
-axs[1, 1].set_xlabel('Observation Baseline (Days)')
-axs[1, 1].set_ylabel('Fitted Eccentricity (e)')
-axs[1, 1].legend()
-axs[1, 1].invert_xaxis()
-
-plt.suptitle("Sparse Sampling Limits (Matrix & Sparsity Degradation)", fontsize=16, fontweight='bold')
-plt.savefig('sparse_sampling.png', dpi=300, bbox_inches='tight')
+plt.suptitle("Sparsity Degradation limits: $N$ vs $e$", fontsize=16, fontweight='bold')
+plt.tight_layout()
 plt.show()

@@ -2,8 +2,6 @@ from .keplerian_fit import KeplerianModel
 import pandas as pd
 import numpy as np
 from scipy.optimize import differential_evolution, minimize
-import matplotlib.pyplot as plt
-
 
 def chi2_6var(params, t, v, dv):
     P, e, T_p, K, omega, gamma = params
