@@ -64,3 +64,9 @@ tested for a few different e's for cadence tests - found out the graphs vary.
 for better analysis i ran this test- cadence.run.py on multiple e ranging from 0 to 0.95 with step 0.5
 plotted 4 heat maps(cadence_degradation_heatmaps.png) using run2.py and heatmaps_plot.py
 
+for the sparse sampling tests i again varies e from 0 to 0.95 and plotted heatmaps (rel_ssl_plots.png)
+
+next i plan to verify the hessian errors im estimating. since the radial velocity equation is highly non linear and our assumption of errors \approx hessian multiple i forgot- assumes parabolic in the parameter space in all axes.
+3 of them are linear parameters for which it should roughly behave as parabolic, for the other three parameters which are non linear ill need to verify.
+But for baseline (as predicted by equation) lets plot all 6, the former 3 shouldnt breakdown much compared to the other 3.
+TEST plan- heatmap (e,noise,|hessian_error - MC_error|/MC_error) for all 6 parameters.

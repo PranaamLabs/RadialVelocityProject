@@ -72,5 +72,11 @@ def fit_3var(params:list, P_guess):
         'omega': omega,
         'gamma': gamma,
         'DE_result': DE_result,
-        'local_result': local_result
+        'local_result': local_result,
+        'dg': dg,
+        'dK': dK,
+        'dw': dw,
+        'dP': dP,
+        'de': de,
+        'dT_p': dT_p
     }
