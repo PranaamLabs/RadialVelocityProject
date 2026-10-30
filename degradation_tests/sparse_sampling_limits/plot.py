@@ -15,7 +15,7 @@ df['rel_e_error'] = np.abs(df['fit_e'] - df['true_e'])/df['true_e']
 # Build 2D Matrices
 matrix_P = df.pivot_table(index='true_e', columns='N', values='rel_P_error', aggfunc='median')
 matrix_K = df.pivot_table(index='true_e', columns='N', values='rel_K_error', aggfunc='mean')
-matrix_LS = df.pivot_table(index='true_e', columns='N', values='LS_power', aggfunc='median')
+matrix_LS = df.pivot_table(index='true_e', columns='N', values='LS_power', aggfunc='mean')
 matrix_e = df.pivot_table(index='true_e', columns='N', values='rel_e_error', aggfunc='mean')
 
 fig, axs = plt.subplots(1, 3, figsize=(18, 5))
@@ -24,7 +24,7 @@ fig, axs = plt.subplots(1, 3, figsize=(18, 5))
 X, Y = matrix_LS.columns, matrix_LS.index
 im1 = axs[0].pcolormesh(X, Y, matrix_LS.values, shading='auto', cmap='viridis')
 axs[0].invert_xaxis()  # Read left-to-right as degradation
-axs[0].set_title('Median LS Peak Power')
+axs[0].set_title('Mean LS Peak Power')
 axs[0].set_xlabel('Number of Observations (N)')
 axs[0].set_ylabel('True Eccentricity (e)')
 fig.colorbar(im1, ax=axs[0], label='Lomb-Scargle Power')

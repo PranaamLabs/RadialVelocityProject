@@ -42,22 +42,26 @@ for ax, (title, metric_series) in zip(axes, metrics.items()):
     e_vals = matrix.index.values
     noise_vals = matrix.columns.values
     
-    # Plot using LogNorm to prevent extreme Hessian failures from washing out the color scale
     pcm = ax.pcolormesh(
         noise_vals, e_vals, matrix.values, 
         cmap='viridis', 
-        norm=colors.LogNorm(vmin=0.01, vmax=10.0), 
+        vmin=0.01, vmax=4.0,
         shading='nearest'
     )
     
-    ax.set_title(f'Hessian vs MC Error:\n{title}')
+    # Change title dynamically based on the parameter
+    if title in ['Amplitude (K)', 'Argument of Periastron (\u03C9)', 'Systemic Velocity (\u03B3)']:
+        ax.set_title(f'Linear fit error vs MC error:\n{title}')
+    else:
+        ax.set_title(f'Hessian vs MC Error:\n{title}')
+        
     ax.set_xlabel('Noise Base (m/s)')
     ax.set_ylabel('Eccentricity (e)')
     
     # Add a colorbar to each subplot
     cbar = fig.colorbar(pcm, ax=ax)
-    cbar.set_label('Fractional Error')
+    cbar.set_label('Relative Error')
 
-fig.suptitle('Hessian Error Approximation Breakdown', fontsize=16, fontweight='bold')
-plt.savefig('hessian_error_heatmaps.png', dpi=300)
+fig.suptitle('Error Approximation Breakdown', fontsize=16, fontweight='bold')
+plt.savefig('error_heatmaps.png', dpi=300)
 plt.show()
