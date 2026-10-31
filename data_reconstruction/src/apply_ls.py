@@ -5,17 +5,25 @@ from lombscargle import LombScargle
 
 df1= pd.read_csv("../data/csv/butler.csv")
 df2= pd.read_csv("../data/csv/howardfulton.csv")
+df3= pd.read_csv("../data/csv/hf_hd3651b.csv")
+
+#df3= pd.read_csv("../data/csv/naef_14Her_b.csv")
 
 y1 = df1["Radial Velocity (m/s)"].to_list()
 y2 = df2["Radial Velocity (m/s)"].to_list()
+y3 = df3["Radial Velocity (m/s)"].to_list()
 
 dy1 = df1["Radial Velocity Uncertainty (m/s)"].to_list()
 dy2 = df2["Radial Velocity Uncertainty (m/s)"].to_list()
+dy3 = df3["Radial Velocity Uncertainty (m/s)"].to_list()
 
 df1["Days"]= df1["HJD (days)"] - df1["HJD (days)"].min()
 df2["Days"]= df2["HJD (days)"] - df2["HJD (days)"].min()
+df3["Days"]= df3["HJD (days)"] - df3["HJD (days)"].min()
+
 t1 = df1["Days"].to_list()
 t2 = df2["Days"].to_list()
+t3 = df3["Days"].to_list()
 
 def omegas(t:list, oversampling=5) -> np.ndarray:
     T_span = t.max() - t.min()
@@ -28,17 +36,24 @@ def omegas(t:list, oversampling=5) -> np.ndarray:
 
 omegas1 = omegas(df1["Days"])
 omegas2 = omegas(df2["Days"])
+omegas3 = omegas(df3["Days"])
 
 gls1 = LombScargle(t1, y1, dy1)
 gls2 = LombScargle(t2, y2, dy2)
+gls3 = LombScargle(t3, y3, dy3)
 
 P1 = gls1.periodogram(omegas1)
 P2 = gls2.periodogram(omegas2)
+P3 = gls3.periodogram(omegas3)
 
 best_omega1 = omegas1[np.argmax(P1)]
 best_omega2 = omegas2[np.argmax(P2)]
+best_omega3 = omegas3[np.argmax(P3)]
+
 period1 = 2*np.pi/best_omega1
 period2 = 2*np.pi/best_omega2
+period3 = 2*np.pi/best_omega3
+
 
 def update_data(filename, omega, period):
     with open(filename, 'a') as data:
@@ -46,11 +61,13 @@ def update_data(filename, omega, period):
         data.write(f"Best Omega: {omega:.6f} rad/d\n")
         data.write(f"Period: {period:.4f} days\n")
 
-update_data('../data/butler_data.txt', best_omega1, period1)
-update_data('../data/howardfulton_data.txt', best_omega2, period2)
+#update_data('../data/butler_data.txt', best_omega1, period1)
+#update_data('../data/howardfulton_data.txt', best_omega2, period2)
+
 
 print(f"Butler Dataset - Best Omega: {best_omega1:.6f} rad/d (Period: {period1:.4f} days)")
 print(f"Howard & Fulton Dataset - Best Omega: {best_omega2:.6f} rad/d (Period: {period2:.4f} days)")
+print(f"HF Dataset - Best Omega: {best_omega3:.6f} rad/d (Period: {period3:.4f} days)")
 
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10))
 
@@ -71,6 +88,24 @@ ax2.set_xlabel(r'Angular Frequency ($\omega$) [rad/d]')
 ax2.set_ylabel('Power')
 ax2.legend()
 ax2.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+
+# Peek Dataset - Separate Plot
+plt.figure(figsize=(12, 6))
+
+plt.plot(omegas3, P3, color='C2', linewidth=1.5,
+         label='HF Dataset')
+
+plt.axvline(best_omega3, color='red', linestyle='--', alpha=0.7,
+            label=f'Peak: {best_omega3:.4f} rad/d')
+
+plt.title('Generalized Lomb-Scargle: HF Dataset (HD 3651b)')
+plt.xlabel(r'Angular Frequency ($\omega$) [rad/d]')
+plt.ylabel('Power')
+plt.legend()
+plt.grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.show()

@@ -127,7 +127,8 @@ def fit(filename, P):
         'local_result': local_result
     }
 
-print("-------------Butler-------------")
-fit("../data/csv/butler.csv", 4.2302)
-print("-------------HowardFulton-------------")
-fit("../data/csv/howardfulton.csv", 4.2308)
+if __name__=='__main__':
+    print("-------------Butler-------------")
+    fit("../data/csv/butler.csv", 4.2302)
+    print("-------------HowardFulton-------------")
+    fit("../data/csv/howardfulton.csv", 4.2308)

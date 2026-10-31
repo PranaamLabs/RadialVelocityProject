@@ -1,4 +1,4 @@
-from .keplerian_fit import KeplerianModel
+from keplerian_fit import KeplerianModel
 import pandas as pd
 import numpy as np
 from scipy.optimize import differential_evolution, minimize
@@ -111,7 +111,7 @@ def plot_fit(t, v, dv, P, e, T_p, gamma, A, B, dP, de, title_suffix=""):
 def fit_3var(filename, P_guess):
     t, v, dv, t_min= get_data(filename)
     bounds = [
-        (P_guess * 0.9, P_guess * 1.1), 
+        (P_guess * 0.7, P_guess * 1.3), 
         (1e-3, 0.95), 
         (-P_guess, P_guess)
     ]
@@ -193,7 +193,9 @@ def fit_3var(filename, P_guess):
 
 #fit_3var("synthetic_rv_data.csv", 21.1668)
 if __name__=="__main__":
-    print(f"{"-"*10}Butler data{"-"*10}")
-    fit_3var("data_reconstruction/data/csv/butler.csv", 4.2302)
-    print(f"{"-"*10}HowardFulton data{"-"*10}")
-    fit_3var("data_reconstruction/data/csv/howardfulton.csv", 4.2308)
+    # print(f"{"-"*10}Butler data{"-"*10}")
+    # fit_3var("data_reconstruction/data/csv/butler.csv", 4.2302)
+    # print(f"{"-"*10}HowardFulton data{"-"*10}")
+    # fit_3var("data_reconstruction/data/csv/howardfulton.csv", 4.2308)
+    #fit_3var("../data/csv/naef_14Her_b.csv", 1882.0067)
+    fit_3var("../data/csv/hf_hd3651b.csv", 62.2618)
