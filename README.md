@@ -128,6 +128,15 @@ The resulting fits and parameter estimates are stored here:
 
 ---
 
+### 1.6 More Datasets
+
+I tested on two more datasets, one of 14 Hercules b by Naef et al(2004) and other of HD 3651 b by Howard & Fulton (2016).
+
+I picked specifically these two as i wanted planets with not so high eccentric orbits, and whose data points are abundant. 
+
+- Plots are in `archive/experiments/reconstruction/keplerian_fit/` and
+- Fitted data in `data_reconstruction/data/fit_data.txt`
+
 ## 2. Degradation Studies
 
 The second part of the project investigates how different observational limitations affect the recovery of orbital parameters.

@@ -40,3 +40,35 @@ Howard-Fulton: e = 0.04629 ± 0.00330
 The Butler dataset yields a value statistically consistent with a circular orbit (e is comparable to its 1σ uncertainty). The Howard-Fulton data prefers a modestly higher eccentricity, but both results indicate a nearly circular orbit overall. This low eccentricity is a hallmark of hot Jupiters, which are expected to have tidally circularized over time.
 The modest differences in the argument of periastron (ω) and time of periastron passage (Tₚ) between the two datasets arise from the near-circular nature of the orbit. When e ≈ 0, there is no well-defined "closest approach," rendering ω and Tₚ partially degenerate with the overall phase of the velocity curve. The optimizer can trade off these parameters while preserving the same physical radial velocity signal. The linear parameters A and B (which encode the amplitude and phase of the sinusoid) remain consistent with the observed K values in both cases.
 The final orbital solutions from both datasets are in good physical agreement and successfully recover the kinematics of 51 Pegasi b—the first exoplanet discovered around a main-sequence star. The small remaining differences are attributable to dataset-specific noise properties and the inherent degeneracies in low-eccentricity Keplerian fits. These results reinforce the picture of a close-in, roughly circular hot Jupiter.
+
+
+-----------------HD 3651 b ---------------
+Local result: P=62.19183803 e=0.672283, T_p=-40.702778
+DE chi2: 2588.85
+Local result: P=62.19166628 e=0.672501, T_p=-40.690242
+Local chi2: 2588.84
+
+Final orbital parameters:
+P = 62.19166628 +/- 0.00381076 days
+e = 0.672501 +/- 0.012996
+T_p = 2449639.9910 +/- 0.2405 days
+K = 16.21 +/- 0.28 m/s
+omega = -2.204 +/- 0.021 rad (-126.3 +/- 1.2°)
+gamma = -1.83 +/- 0.14 m/s
+A = -9.60 +/- 0.35, B = 13.07 +/- 0.26
+
+
+-------------------- 14 Her b -------------------
+Local result: P=1787.26915231 e=0.350199, T_p=132.422491
+DE chi2: 442.18
+Local result: P=1787.26898812 e=0.350204, T_p=132.422469
+Local chi2: 442.18
+
+Final orbital parameters:
+P = 1787.26898812 +/- 8.79882354 days
+e = 0.350204 +/- 0.012453
+T_p = 2449597.0181 +/- 11.6288 days
+K = 90.31 +/- 0.95 m/s
+omega = 0.452 +/- 0.011 rad (25.9 +/- 0.7°)
+gamma = -13825.38 +/- 0.66 m/s
+A = 81.26 +/- 0.97, B = -39.41 +/- 1.02
