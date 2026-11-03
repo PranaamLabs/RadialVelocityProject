@@ -11,7 +11,7 @@ The project is currently divided into two parts:
 
 The repository has accumulated quite a few experiments and intermediate files along the way, so here's a walkthrough of what is where and what I've done so far.
 
-*Last updated: 30 October 2026*
+*Last updated: 3rd November 2026*
 
 ---
 
@@ -379,9 +379,9 @@ A few notes on the structure:
 So far, I've:
 
 - Implemented and cross-validated a Generalized Lomb–Scargle periodogram.
-- Reconstructed the orbital period from two independent 51 Pegasi b datasets.
+- Reconstructed the orbital period from two independent 51 Pegasi b datasets, and one of 14 Her b, and one of HD 3651 b.
 - Implemented two approaches to Keplerian parameter fitting.
-- Applied the fitting pipeline to both datasets.
+- Applied the fitting pipeline to all 4 datasets.
 - Conducted cadence degradation experiments involving seasonal gaps, lunar masking and periastron phase starvation.
 - Investigated the effects of sparse temporal sampling.
 - Started investigating the accuracy of Hessian-based uncertainty estimates against Monte Carlo results.
